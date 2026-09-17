@@ -10,7 +10,7 @@ Projeto desenvolvido para a disciplina **Programação IV** — Ciência da Comp
 
 ## 👥 Time
 
-- João Pedro
+- João Pedro Pereira Barpp
 - Felipe
 - Matheus
 - Mauricio
