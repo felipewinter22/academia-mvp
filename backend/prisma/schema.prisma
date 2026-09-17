@@ -1,0 +1,61 @@
+// Schema inicial do MVP - Sistema de Gerenciamento de Academia
+// Este é apenas o esqueleto do banco (etapa de kickoff).
+// Novos modelos, relacionamentos e regras de negócio serão adicionados
+// durante o desenvolvimento das features.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Usuário do sistema (equipe da academia: admin, instrutor, recepção)
+model Usuario {
+  id        String   @id @default(uuid())
+  nome      String
+  email     String   @unique
+  senhaHash String
+  papel     Papel    @default(RECEPCAO)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("usuarios")
+}
+
+enum Papel {
+  ADMIN
+  INSTRUTOR
+  RECEPCAO
+}
+
+/// Aluno matriculado na academia
+model Aluno {
+  id           String     @id @default(uuid())
+  nome         String
+  email        String     @unique
+  telefone     String?
+  dataNascimento DateTime?
+  ativo        Boolean    @default(true)
+  planoId      String?
+  plano        Plano?     @relation(fields: [planoId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("alunos")
+}
+
+/// Plano de assinatura oferecido pela academia
+model Plano {
+  id          String   @id @default(uuid())
+  nome        String
+  descricao   String?
+  precoMensal Decimal  @db.Decimal(10, 2)
+  alunos      Aluno[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("planos")
+}
