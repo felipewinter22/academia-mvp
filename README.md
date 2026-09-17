@@ -10,11 +10,10 @@ Projeto desenvolvido para a disciplina **Programação IV** — Ciência da Comp
 
 ## 👥 Time
 
-| Nome | Papel/Responsabilidade |
-| ---- | ----------------------- |
-| _(preencher)_ | _(ex: Backend / Banco de dados)_ |
-| _(preencher)_ | _(ex: Frontend)_ |
-| _(preencher)_ | _(ex: Documentação / Organização)_ |
+- João Pedro
+- Felipe
+- Matheus
+- Mauricio
 
 ---
 
