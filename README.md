@@ -11,9 +11,9 @@ Projeto desenvolvido para a disciplina **Programação IV** — Ciência da Comp
 ## 👥 Time
 
 - João Pedro Pereira Barpp
-- Felipe
-- Matheus
-- Mauricio
+- Felipe Alfredo Winter
+- Mateus Ariel Leising Stock
+- Mauricio Bairos
 
 ---
 
