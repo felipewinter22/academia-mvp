@@ -13,7 +13,10 @@ export class PlanosService {
   constructor(private readonly prisma: PrismaService) {}
 
   findAll() {
-    return this.prisma.plano.findMany({ orderBy: { nome: 'asc' } });
+    return this.prisma.plano.findMany({
+      include: { _count: { select: { alunos: true } } },
+      orderBy: { nome: 'asc' },
+    });
   }
 
   async findOne(id: string) {

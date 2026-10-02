@@ -59,6 +59,7 @@ export default async function PlanosPage({
               <th className="px-4 py-2 font-medium">Nome</th>
               <th className="px-4 py-2 font-medium">Descrição</th>
               <th className="px-4 py-2 font-medium">Preço mensal</th>
+              <th className="px-4 py-2 font-medium">Alunos</th>
               <th className="px-4 py-2 font-medium">Ações</th>
             </tr>
           </thead>
@@ -75,6 +76,14 @@ export default async function PlanosPage({
                     style: "currency",
                     currency: "BRL",
                   })}
+                </td>
+                <td className="px-4 py-2">
+                  <Link
+                    href={`/alunos?planoId=${plano.id}`}
+                    className="hover:underline"
+                  >
+                    {plano._count?.alunos ?? 0}
+                  </Link>
                 </td>
                 <td className="px-4 py-2">
                   <div className="flex items-center gap-3">

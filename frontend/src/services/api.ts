@@ -1,7 +1,13 @@
 // Cliente HTTP central para integração com o backend (NestJS).
 // A URL virá da variável de ambiente NEXT_PUBLIC_API_URL (ver .env.example).
 
-import type { Aluno, AlunoInput, Plano, PlanoInput } from "@/types";
+import type {
+  Aluno,
+  AlunoFiltros,
+  AlunoInput,
+  Plano,
+  PlanoInput,
+} from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -30,8 +36,14 @@ export async function apiFetch(path: string, options?: RequestInit) {
   return response.json();
 }
 
-export function getAlunos(): Promise<Aluno[]> {
-  return apiFetch("/alunos");
+export function getAlunos(filtros: AlunoFiltros = {}): Promise<Aluno[]> {
+  const params = new URLSearchParams();
+  if (filtros.search) params.set("search", filtros.search);
+  if (filtros.planoId) params.set("planoId", filtros.planoId);
+  if (filtros.ativo !== undefined) params.set("ativo", String(filtros.ativo));
+
+  const query = params.toString();
+  return apiFetch(`/alunos${query ? `?${query}` : ""}`);
 }
 
 export function getAluno(id: string): Promise<Aluno> {
@@ -42,7 +54,10 @@ export function createAluno(data: AlunoInput): Promise<Aluno> {
   return apiFetch("/alunos", { method: "POST", body: JSON.stringify(data) });
 }
 
-export function updateAluno(id: string, data: AlunoInput): Promise<Aluno> {
+export function updateAluno(
+  id: string,
+  data: Partial<AlunoInput>,
+): Promise<Aluno> {
   return apiFetch(`/alunos/${id}`, {
     method: "PATCH",
     body: JSON.stringify(data),

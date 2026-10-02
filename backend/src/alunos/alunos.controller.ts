@@ -6,18 +6,20 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { AlunosService } from './alunos.service';
 import { CreateAlunoDto } from './dto/create-aluno.dto';
 import { UpdateAlunoDto } from './dto/update-aluno.dto';
+import { FindAlunosDto } from './dto/find-alunos.dto';
 
 @Controller('alunos')
 export class AlunosController {
   constructor(private readonly alunosService: AlunosService) {}
 
   @Get()
-  findAll() {
-    return this.alunosService.findAll();
+  findAll(@Query() filtros: FindAlunosDto) {
+    return this.alunosService.findAll(filtros);
   }
 
   @Get(':id')

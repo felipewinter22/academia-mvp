@@ -47,3 +47,8 @@ export async function deleteAlunoAction(id: string) {
   revalidatePath("/alunos");
   redirect("/alunos");
 }
+
+export async function toggleAlunoAtivoAction(id: string, ativo: boolean) {
+  await updateAluno(id, { ativo: !ativo });
+  revalidatePath("/alunos");
+}

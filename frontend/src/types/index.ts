@@ -6,6 +6,9 @@ export interface Plano {
   nome: string;
   descricao: string | null;
   precoMensal: string;
+  _count?: {
+    alunos: number;
+  };
 }
 
 export interface Aluno {
@@ -29,4 +32,10 @@ export interface PlanoInput {
   nome: string;
   descricao?: string;
   precoMensal: number;
+}
+
+export interface AlunoFiltros {
+  search?: string;
+  planoId?: string;
+  ativo?: boolean;
 }

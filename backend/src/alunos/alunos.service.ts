@@ -8,6 +8,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAlunoDto } from './dto/create-aluno.dto';
 import { UpdateAlunoDto } from './dto/update-aluno.dto';
+import { FindAlunosDto } from './dto/find-alunos.dto';
 
 function handleWriteError(error: unknown): never {
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -25,8 +26,20 @@ function handleWriteError(error: unknown): never {
 export class AlunosService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll() {
+  findAll(filtros: FindAlunosDto = {}) {
+    const { search, planoId, ativo } = filtros;
+
     return this.prisma.aluno.findMany({
+      where: {
+        ...(planoId && { planoId }),
+        ...(ativo !== undefined && { ativo }),
+        ...(search && {
+          OR: [
+            { nome: { contains: search, mode: 'insensitive' } },
+            { email: { contains: search, mode: 'insensitive' } },
+          ],
+        }),
+      },
       include: { plano: true },
       orderBy: { nome: 'asc' },
     });
