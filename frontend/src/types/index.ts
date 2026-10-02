@@ -16,3 +16,17 @@ export interface Aluno {
   ativo: boolean;
   plano: Plano | null;
 }
+
+export interface AlunoInput {
+  nome: string;
+  email: string;
+  telefone?: string;
+  ativo?: boolean;
+  planoId?: string;
+}
+
+export interface PlanoInput {
+  nome: string;
+  descricao?: string;
+  precoMensal: number;
+}

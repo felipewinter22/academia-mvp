@@ -1,5 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AlunosService } from './alunos.service';
+import { CreateAlunoDto } from './dto/create-aluno.dto';
+import { UpdateAlunoDto } from './dto/update-aluno.dto';
 
 @Controller('alunos')
 export class AlunosController {
@@ -8,5 +18,25 @@ export class AlunosController {
   @Get()
   findAll() {
     return this.alunosService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.alunosService.findOne(id);
+  }
+
+  @Post()
+  create(@Body() dto: CreateAlunoDto) {
+    return this.alunosService.create(dto);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateAlunoDto) {
+    return this.alunosService.update(id, dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.alunosService.remove(id);
   }
 }
