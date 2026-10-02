@@ -4,7 +4,7 @@ Sistema web para **gerenciamento de academia** (alunos, planos e futuras funcion
 
 Projeto desenvolvido para a disciplina **Programação IV** — Ciência da Computação (UNOESC), sob orientação do professor Roberson Junior Fernandes Alves.
 
-> **Status atual:** Kickoff estrutural do MVP. Front e back ainda **não estão integrados** — cada um roda de forma independente nesta etapa, conforme orientação da atividade.
+> **Status atual:** CRUD de Alunos e Planos completo, com frontend e backend integrados (busca, filtros, ativar/desativar aluno direto na lista e um resumo com os números principais na home). Falta o deploy em produção.
 
 ---
 
@@ -19,9 +19,16 @@ Projeto desenvolvido para a disciplina **Programação IV** — Ciência da Comp
 
 ## 📝 Descrição do projeto
 
-O **Academia MVP** é uma aplicação para ajudar academias a gerenciar seus alunos e planos de assinatura. Nesta primeira entrega, o foco é puramente estrutural: organização do repositório, esqueleto do backend e do frontend, e configuração do banco de dados com as primeiras migrations.
+O **Academia MVP** é uma aplicação para ajudar academias a gerenciar seus alunos e planos de assinatura. Hoje já dá para cadastrar, editar, buscar e remover alunos e planos, vinculando um aluno a um plano e acompanhando quantos alunos cada plano tem.
 
-Funcionalidades (features) e a integração entre front e back serão implementadas nas próximas etapas.
+### Funcionalidades
+
+- CRUD completo de **Alunos** (nome, email, telefone, plano, status ativo/inativo)
+- CRUD completo de **Planos** (nome, descrição, preço mensal)
+- Busca por nome/email e filtros por plano e status na lista de alunos
+- Ativar/desativar aluno com um clique, direto na listagem
+- Contagem de alunos por plano e um pequeno resumo (alunos ativos, planos, receita mensal recorrente) na home
+- Validação de dados no backend (DTOs) e tratamento de erros comuns (email duplicado, plano inexistente, exclusão de plano com alunos vinculados)
 
 ---
 
@@ -86,7 +93,7 @@ Isso sobe um PostgreSQL local na porta `5432` (usuário `postgres`, senha `postg
 cd backend
 npm install
 cp .env.example .env
-npx prisma migrate dev --name init   # cria as tabelas iniciais no banco
+npx prisma migrate dev               # aplica as migrations no banco
 npm run start:dev
 ```
 
@@ -110,9 +117,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-A aplicação sobe em `http://localhost:3000`.
-
-> ⚠️ Nesta etapa, o frontend **não consome** a API ainda — cada parte roda isoladamente. A integração será feita nas próximas atividades.
+A aplicação sobe em `http://localhost:3000`, já consumindo a API do backend.
 
 ---
 
@@ -133,12 +138,12 @@ Esses modelos são o ponto de partida e serão expandidos conforme novas feature
 
 Ver [Issues do repositório](../../issues) para o detalhamento, entre eles:
 
+- [x] CRUD de Alunos e Planos (backend)
+- [x] Telas de listagem, cadastro e edição (frontend)
+- [x] Integração frontend ↔ backend
+- [x] Busca, filtros e contagem de alunos por plano
+- [ ] Deploy (ambiente de produção)
 - [ ] Definir autenticação (login da equipe da academia)
-- [ ] CRUD de Alunos (backend)
-- [ ] CRUD de Planos (backend)
-- [ ] Telas de listagem e cadastro de Alunos (frontend)
-- [ ] Integração frontend ↔ backend
-- [ ] Deploy (ambiente de homologação)
 
 ---
 
