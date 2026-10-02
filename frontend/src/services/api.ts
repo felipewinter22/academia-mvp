@@ -5,6 +5,10 @@ import type {
   Aluno,
   AlunoFiltros,
   AlunoInput,
+  Checkin,
+  CheckinInput,
+  Pagamento,
+  PagamentoInput,
   Plano,
   PlanoInput,
 } from "@/types";
@@ -89,4 +93,34 @@ export function updatePlano(id: string, data: PlanoInput): Promise<Plano> {
 
 export function deletePlano(id: string): Promise<Plano> {
   return apiFetch(`/planos/${id}`, { method: "DELETE" });
+}
+
+export function getPagamentos(alunoId?: string): Promise<Pagamento[]> {
+  return apiFetch(`/pagamentos${alunoId ? `?alunoId=${alunoId}` : ""}`);
+}
+
+export function createPagamento(data: PagamentoInput): Promise<Pagamento> {
+  return apiFetch("/pagamentos", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export function deletePagamento(id: string): Promise<Pagamento> {
+  return apiFetch(`/pagamentos/${id}`, { method: "DELETE" });
+}
+
+export function getCheckins(alunoId?: string): Promise<Checkin[]> {
+  return apiFetch(`/checkins${alunoId ? `?alunoId=${alunoId}` : ""}`);
+}
+
+export function createCheckin(data: CheckinInput): Promise<Checkin> {
+  return apiFetch("/checkins", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export function deleteCheckin(id: string): Promise<Checkin> {
+  return apiFetch(`/checkins/${id}`, { method: "DELETE" });
 }

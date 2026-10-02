@@ -1,10 +1,10 @@
 # 🏋️ Academia MVP
 
-Sistema web para **gerenciamento de academia** (alunos, planos e futuras funcionalidades como treinos, matrículas e pagamentos).
+Sistema web para **gerenciamento de academia**: alunos, planos, pagamentos e check-ins.
 
 Projeto desenvolvido para a disciplina **Programação IV** — Ciência da Computação (UNOESC), sob orientação do professor Roberson Junior Fernandes Alves.
 
-> **Status atual:** CRUD de Alunos e Planos completo, com frontend e backend integrados (busca, filtros, ativar/desativar aluno direto na lista e um resumo com os números principais na home). Falta o deploy em produção.
+> **Status atual:** CRUD de Alunos, Planos, Pagamentos e Check-ins completo, com frontend e backend integrados (busca, filtros, ativar/desativar aluno direto na lista e um resumo com os números principais na home). Falta o deploy em produção.
 
 ---
 
@@ -25,10 +25,13 @@ O **Academia MVP** é uma aplicação para ajudar academias a gerenciar seus alu
 
 - CRUD completo de **Alunos** (nome, email, telefone, plano, status ativo/inativo)
 - CRUD completo de **Planos** (nome, descrição, preço mensal)
+- **Pagamentos**: registro de mensalidades por aluno, com lista global e histórico na página de cada aluno
+- **Check-ins**: registro de entrada na academia, com lista global e histórico por aluno
+- Página de detalhe do aluno (`/alunos/:id`) reunindo dados, pagamentos e check-ins num só lugar
 - Busca por nome/email e filtros por plano e status na lista de alunos
 - Ativar/desativar aluno com um clique, direto na listagem
 - Contagem de alunos por plano e um pequeno resumo (alunos ativos, planos, receita mensal recorrente) na home
-- Validação de dados no backend (DTOs) e tratamento de erros comuns (email duplicado, plano inexistente, exclusão de plano com alunos vinculados)
+- Validação de dados no backend (DTOs) e tratamento de erros comuns (email duplicado, plano/aluno inexistente, exclusão de plano com alunos vinculados)
 
 ---
 
@@ -125,12 +128,12 @@ A aplicação sobe em `http://localhost:3000`, já consumindo a API do backend.
 
 - **SGBD escolhido:** PostgreSQL
 - **ORM:** Prisma
-- **Modelos iniciais** (`backend/prisma/schema.prisma`):
+- **Modelos** (`backend/prisma/schema.prisma`):
   - `Usuario` — equipe da academia (admin, instrutor, recepção)
   - `Aluno` — alunos matriculados
   - `Plano` — planos de assinatura oferecidos
-
-Esses modelos são o ponto de partida e serão expandidos conforme novas features forem definidas (matrículas, treinos, pagamentos, frequência, etc.).
+  - `Pagamento` — mensalidades pagas por um aluno
+  - `Checkin` — entradas registradas de um aluno na academia
 
 ---
 
@@ -142,8 +145,24 @@ Ver [Issues do repositório](../../issues) para o detalhamento, entre eles:
 - [x] Telas de listagem, cadastro e edição (frontend)
 - [x] Integração frontend ↔ backend
 - [x] Busca, filtros e contagem de alunos por plano
+- [x] Registro de pagamentos e check-ins
 - [ ] Deploy (ambiente de produção)
 - [ ] Definir autenticação (login da equipe da academia)
+
+---
+
+## 💡 Pra onde isso poderia ir
+
+Ideias que não entram nesta entrega, mas fazem sentido como continuação natural do que já existe:
+
+- **Cobrança automática**: hoje o pagamento é lançado manualmente; dava pra integrar com Pix/Mercado Pago/Stripe e gerar a mensalidade sozinho todo mês, já marcando quem está inadimplente
+- **Alerta de inadimplência**: listar quem não paga há mais de X dias e avisar a recepção (ou o próprio aluno, por email/WhatsApp)
+- **Alerta de aluno sumido**: usando o histórico de check-ins, identificar quem não aparece há semanas — ajuda a academia agir antes do cancelamento
+- **Check-in por QR Code/catraca**: hoje é um clique manual na tela; numa academia de verdade isso seria lido automaticamente na entrada
+- **App ou área do aluno**: o aluno logar e ver seu próprio histórico de check-ins e pagamentos, sem depender da recepção
+- **Login da equipe com permissões**: o modelo `Usuario` já tem os papéis (`ADMIN`, `INSTRUTOR`, `RECEPCAO`) prontos no banco, só falta a autenticação usar isso de fato
+- **Relatórios**: receita por mês, frequência média, plano mais popular — os dados já existem, falta uma tela pra cruzar isso
+- **Múltiplas unidades**: se a academia crescer e abrir filial, o modelo de dados aguentaria adicionar uma unidade por aluno/check-in sem muita reforma
 
 ---
 

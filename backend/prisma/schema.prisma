@@ -41,10 +41,35 @@ model Aluno {
   ativo        Boolean    @default(true)
   planoId      String?
   plano        Plano?     @relation(fields: [planoId], references: [id], onDelete: Restrict)
+  pagamentos   Pagamento[]
+  checkins     Checkin[]
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 
   @@map("alunos")
+}
+
+/// Pagamento de mensalidade registrado para um aluno
+model Pagamento {
+  id        String   @id @default(uuid())
+  alunoId   String
+  aluno     Aluno    @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+  valor     Decimal  @db.Decimal(10, 2)
+  descricao String?
+  data      DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  @@map("pagamentos")
+}
+
+/// Check-in (entrada na academia) registrado para um aluno
+model Checkin {
+  id        String   @id @default(uuid())
+  alunoId   String
+  aluno     Aluno    @relation(fields: [alunoId], references: [id], onDelete: Cascade)
+  dataHora  DateTime @default(now())
+
+  @@map("checkins")
 }
 
 /// Plano de assinatura oferecido pela academia

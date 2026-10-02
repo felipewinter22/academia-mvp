@@ -1,33 +1,26 @@
 import Link from "next/link";
-import { getAluno, getPlanos } from "@/services/api";
-import { updateAlunoAction } from "../../actions";
+import { getAlunos } from "@/services/api";
+import { createPagamentoAction } from "../actions";
 
-export default async function EditarAlunoPage({
-  params,
+export default async function NovoPagamentoPage({
   searchParams,
 }: {
-  params: Promise<{ id: string }>;
   searchParams: Promise<{ error?: string }>;
 }) {
-  const { id } = await params;
   const { error } = await searchParams;
-  const [aluno, planos] = await Promise.all([
-    getAluno(id),
-    getPlanos().catch(() => []),
-  ]);
-  const updateAction = updateAlunoAction.bind(null, id);
+  const alunos = await getAlunos().catch(() => []);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-lg flex-col gap-6 p-8">
       <Link
-        href="/alunos"
+        href="/pagamentos"
         className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
       >
         ← Voltar
       </Link>
 
       <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-        Editar aluno
+        Novo pagamento
       </h1>
 
       {error && (
@@ -36,56 +29,45 @@ export default async function EditarAlunoPage({
         </p>
       )}
 
-      <form action={updateAction} className="flex flex-col gap-4">
+      <form action={createPagamentoAction} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1 text-sm">
-          Nome
-          <input
-            name="nome"
-            required
-            defaultValue={aluno.nome}
-            className="rounded-md border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </label>
-
-        <label className="flex flex-col gap-1 text-sm">
-          Email
-          <input
-            name="email"
-            type="email"
-            required
-            defaultValue={aluno.email}
-            className="rounded-md border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </label>
-
-        <label className="flex flex-col gap-1 text-sm">
-          Telefone
-          <input
-            name="telefone"
-            defaultValue={aluno.telefone ?? ""}
-            className="rounded-md border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </label>
-
-        <label className="flex flex-col gap-1 text-sm">
-          Plano
+          Aluno
           <select
-            name="planoId"
-            defaultValue={aluno.plano?.id ?? ""}
+            name="alunoId"
+            required
+            defaultValue=""
             className="rounded-md border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           >
-            <option value="">Sem plano</option>
-            {planos.map((plano) => (
-              <option key={plano.id} value={plano.id}>
-                {plano.nome}
+            <option value="" disabled>
+              Selecione um aluno
+            </option>
+            {alunos.map((aluno) => (
+              <option key={aluno.id} value={aluno.id}>
+                {aluno.nome}
               </option>
             ))}
           </select>
         </label>
 
-        <label className="flex items-center gap-2 text-sm">
-          <input name="ativo" type="checkbox" defaultChecked={aluno.ativo} />
-          Ativo
+        <label className="flex flex-col gap-1 text-sm">
+          Valor (R$)
+          <input
+            name="valor"
+            type="number"
+            step="0.01"
+            min="0"
+            required
+            className="rounded-md border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1 text-sm">
+          Descrição
+          <input
+            name="descricao"
+            placeholder="Ex: Mensalidade de outubro"
+            className="rounded-md border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          />
         </label>
 
         <div className="flex gap-3">
@@ -96,7 +78,7 @@ export default async function EditarAlunoPage({
             Salvar
           </button>
           <Link
-            href="/alunos"
+            href="/pagamentos"
             className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium dark:border-zinc-700"
           >
             Cancelar

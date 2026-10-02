@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getAlunos, getPlanos } from "@/services/api";
 
 export const dynamic = "force-dynamic";
@@ -59,18 +60,18 @@ export default async function Home() {
       </div>
 
       <div className="flex gap-4">
-        <a
+        <Link
           href="/alunos"
           className="text-sm font-medium text-emerald-700 underline underline-offset-4 dark:text-emerald-400"
         >
           Ver alunos →
-        </a>
-        <a
+        </Link>
+        <Link
           href="/planos"
           className="text-sm font-medium text-emerald-700 underline underline-offset-4 dark:text-emerald-400"
         >
           Ver planos →
-        </a>
+        </Link>
       </div>
     </div>
   );

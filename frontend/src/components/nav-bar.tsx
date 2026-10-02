@@ -19,6 +19,18 @@ export function NavBar() {
         >
           Planos
         </Link>
+        <Link
+          href="/pagamentos"
+          className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
+        >
+          Pagamentos
+        </Link>
+        <Link
+          href="/checkins"
+          className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
+        >
+          Check-ins
+        </Link>
       </nav>
     </header>
   );

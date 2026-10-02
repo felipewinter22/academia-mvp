@@ -121,7 +121,14 @@ export default async function AlunosPage({
                 key={aluno.id}
                 className="border-t border-zinc-200 dark:border-zinc-800"
               >
-                <td className="px-4 py-2">{aluno.nome}</td>
+                <td className="px-4 py-2">
+                  <Link
+                    href={`/alunos/${aluno.id}`}
+                    className="font-medium hover:underline"
+                  >
+                    {aluno.nome}
+                  </Link>
+                </td>
                 <td className="px-4 py-2">{aluno.email}</td>
                 <td className="px-4 py-2">{aluno.plano?.nome ?? "—"}</td>
                 <td className="px-4 py-2">

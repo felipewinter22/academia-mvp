@@ -39,3 +39,33 @@ export interface AlunoFiltros {
   planoId?: string;
   ativo?: boolean;
 }
+
+export interface Pagamento {
+  id: string;
+  alunoId: string;
+  valor: string;
+  descricao: string | null;
+  data: string;
+  aluno?: {
+    nome: string;
+  };
+}
+
+export interface PagamentoInput {
+  alunoId: string;
+  valor: number;
+  descricao?: string;
+}
+
+export interface Checkin {
+  id: string;
+  alunoId: string;
+  dataHora: string;
+  aluno?: {
+    nome: string;
+  };
+}
+
+export interface CheckinInput {
+  alunoId: string;
+}
