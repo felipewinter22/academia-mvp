@@ -4,7 +4,14 @@ Sistema web para **gerenciamento de academia**: alunos, planos, pagamentos e che
 
 Projeto desenvolvido para a disciplina **Programação IV** — Ciência da Computação (UNOESC), sob orientação do professor Roberson Junior Fernandes Alves.
 
-> **Status atual:** CRUD de Alunos, Planos, Pagamentos e Check-ins completo, com frontend e backend integrados (busca, filtros, ativar/desativar aluno direto na lista e um resumo com os números principais na home). Falta o deploy em produção.
+> **Status atual:** CRUD de Alunos, Planos, Pagamentos e Check-ins completo, com frontend e backend integrados (busca, filtros, ativar/desativar aluno direto na lista e um resumo com os números principais na home) e aplicação já em produção.
+
+## 🌐 Aplicação no ar
+
+- **Frontend:** https://frontend-two-beta-52.vercel.app
+- **Backend (API):** https://academia-mvp.onrender.com
+
+> O backend está no plano free do Render, que "dorme" depois de um tempo sem uso — a primeira requisição depois de um tempo ocioso pode demorar de 30 a 60 segundos pra responder enquanto ele volta a subir.
 
 ---
 
@@ -146,7 +153,7 @@ Ver [Issues do repositório](../../issues) para o detalhamento, entre eles:
 - [x] Integração frontend ↔ backend
 - [x] Busca, filtros e contagem de alunos por plano
 - [x] Registro de pagamentos e check-ins
-- [ ] Deploy (ambiente de produção)
+- [x] Deploy (Render + Vercel)
 - [ ] Definir autenticação (login da equipe da academia)
 
 ---
