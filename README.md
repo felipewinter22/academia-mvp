@@ -173,6 +173,8 @@ Ideias que não entram nesta entrega, mas fazem sentido como continuação natur
 
 ---
 
+🎥 Vídeo do projeto:
+
 ## 📄 Licença
 
 Projeto acadêmico — uso educacional.
